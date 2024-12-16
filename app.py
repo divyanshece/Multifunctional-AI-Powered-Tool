@@ -35,19 +35,33 @@ if option == "ATS":
         return text
 
     input_prompt = """
-    Hey Act Like a skilled or very experienced ATS(Application Tracking System)
-    with a deep understanding of tech field, software engineering, data science, data analyst
-    and big data engineer. Your task is to evaluate the resume based on the given job description.
-    You must consider the job market is very competitive and you should provide 
-    best assistance for improving the resumes. Assign the percentage Matching based 
-    on JD and
-    the missing keywords with high accuracy
-    resume:{text}
-    description:{jd}
+Hey Act Like a skilled or very experienced ATS (Application Tracking System)
+with a deep understanding of various fields, including software industry. 
+Your task is to evaluate the resume based on the given job description. 
+You must consider that the job market is very competitive and provide 
+the best assistance for improving the resumes. 
 
-    I want the response in multipe lines string having the prettier structure
-    {{"JD Match":"%","MissingKeywords:[]","Profile Summary":""}}
-    """
+Assign the percentage Matching based on the provided Job Description (JD) and the resume content. 
+Additionally, identify and list missing keywords that are critical to the role. 
+
+Analyze the resume for:
+1. Relevance to the job description.
+2. Missing skills, certifications, or experience.
+3. Suggestions for improving the resume to better align with the JD.
+
+Provide the output in a structured, human-readable format like this:
+{{
+    "JD Match": "XX%", 
+    "MissingKeywords": ["keyword1", "keyword2", ...], 
+    "Profile Summary": "A concise summary of how the candidate aligns with the JD and areas for improvement."
+}}
+
+Resume:
+{text}
+
+Job Description:
+{jd}
+"""
 
     st.title("AI ATS SYSTEM")
     st.text("Improve Your Resume ATS")
