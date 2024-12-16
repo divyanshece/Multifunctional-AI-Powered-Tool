@@ -2,13 +2,13 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
+
 load_dotenv()
 
-# Configure the page
+
 st.set_page_config(page_title="AI Products", page_icon=":robot:", layout="wide")
 
-# Sidebar Navigation
+
 st.sidebar.title("AI Products")
 option = st.sidebar.radio("Choose a Product:", ["ATS", "YT Summarizer", "Invoice Extractor"])
 
@@ -20,7 +20,7 @@ if option == "ATS":
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
     def get_gemini_response(input):
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(input)
         return response.text
 
@@ -63,6 +63,7 @@ Job Description:
 {jd}
 """
 
+
     st.title("AI ATS SYSTEM")
     st.text("Improve Your Resume ATS")
     jd = st.text_area("Paste the Job Description")
@@ -85,7 +86,7 @@ elif option == "YT Summarizer":
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
     prompt = """You are a YouTube video summarizer. You will take the transcript text
-    and summarize the entire video, providing the important points within 250 words.
+    and summarize the entire video, providing the important points within 1000 words.
     Please provide the summary of the text given here: """
 
     def extract_transcript_details(youtube_video_url):
@@ -108,7 +109,7 @@ elif option == "YT Summarizer":
 
     def generate_gemini_content(transcript_text, prompt):
         try:
-            model = genai.GenerativeModel("gemini-pro")
+            model = genai.GenerativeModel("gemini-1.5-flash")
             response = model.generate_content(prompt + transcript_text)
             return response.text
         except Exception as e:
@@ -121,7 +122,7 @@ elif option == "YT Summarizer":
     if youtube_link:
         try:
             video_id = youtube_link.split("v=")[1].split("&")[0]
-            st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
+            st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", width=300)
         except IndexError:
             st.error("Invalid YouTube link. Please ensure it contains 'v=' followed by the video ID.")
 
